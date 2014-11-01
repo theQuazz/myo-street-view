@@ -3,12 +3,9 @@
   "name": "Myo App",
   "description": "Yay!",
   "version": "0.0.1",
-  "icons": {},
-  "background": {
-    "scripts": [
-      "src/js/background.js"
-    ],
-    "persistent": true
-  },
-  "permissions": []
+  "app": {
+    "launch": {
+      "local_path": "src/main.html"
+    }
+  }
 }
