@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Myo App",
-  "description": "Yay!",
-  "version": "0.0.1",
+  "name": "Myo Street View",
+  "description": "Use the Myo to explore Google Street View!",
+  "version": "0.0.2",
   "permissions": ["geolocation", "webview"],
   "webview": {
     "partitions": [

@@ -39,7 +39,7 @@ MyoMapExplorer.prototype.setLatLng = function(latLng, cb) {
 MyoMapExplorer.prototype.setMyoEmitter = function(emitter) {
   this.emitter = emitter;
   emitter.on('move_forward', this.moveForward.bind(this));
-  emitter.on('move_backward', this.moveBackward.bind(this));
+  emitter.on('move_backwards', this.moveBackward.bind(this));
   emitter.on('turn_left', this.rotateLeft.bind(this));
   emitter.on('turn_right', this.rotateRight.bind(this));
   emitter.on('wipe_down', this.lookDown.bind(this));
@@ -81,7 +81,8 @@ MyoMapExplorer.prototype.moveForward = function() {
   for (var i in links) {
     var diff = (links[i].heading - pov.heading) % 360;
     if (diff < 0) diff += 360;
-    if (315 < diff || diff < 45) {
+    if (diff > 180) diff = 360 - diff;
+    if (diff < 45) {
       if (!best.link || diff < best.diff) {
         best = {diff: diff, link: links[i]};
       }
@@ -97,9 +98,10 @@ MyoMapExplorer.prototype.moveBackward = function() {
   var best  = {diff: 0, link: null};
 
   for (var i in links) {
-    var diff = (links[i].heading + 180 - pov.heading) % 360;
+    var diff = (links[i].heading - pov.heading) % 360;
     if (diff < 0) diff += 360;
-    if (315 < diff || diff < 45) {
+    if (diff > 180) diff = 360 - diff;
+    if (diff > 135) {
       if (!best.link || diff < best.diff) {
         best = {diff: diff, link: links[i]};
       }

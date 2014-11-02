@@ -1,14 +1,13 @@
 
-var MyoMapExplorer = require('./map');
-var emitter        = require('./script');
-
-var radius = 1e6;
-
 window.initialize = function() {
+
+  var MyoMapExplorer = require('./map');
+  var emitter        = require('./script');
+
+  var radius = 1e6;
+
   function getLocation() {
-    console.log(navigator.geolocation);
     navigator.geolocation.getCurrentPosition(function(position) {
-      console.log('?');
       var sv = new google.maps.StreetViewService();
       sv.getPanoramaByLocation({
         lat: position.coords.latitude,
