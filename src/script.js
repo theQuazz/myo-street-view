@@ -6,6 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 require('myo/experimental/myo.experimental');
 
 var m = myo.create();
+var initial = null;
 
 var mapEvent = new EventEmitter();
 
@@ -17,19 +18,22 @@ function sendEvent(eventType) {
 }
 
 
-var sendEventThrottled = _.throttle(sendEvent, 700);
-myo.options.doubleTap.threshold = 1;
-myo.options.doubleTap.time = 300;
+var sendEventThrottled = _.throttle(sendEvent, 1200);
 
 function detectRotation(data) {
 	var x = data.x;
 	var y = data.y;
 	var z = data.z;
-//	console.log(x,y,z);
-	if (x < -0.8) sendEventThrottled('wipe_down');
-	else if (x > 0.8 ) sendEventThrottled('wipe_up');
-	else if (y < -0.1) sendEventThrottled('left_rotate');
-	else if (y > 0.9) sendEventThrottled('right_rotate');
+	if (!initial) initial = data;
+	console.log(initial, data);
+	m.on('fingers_spread', function(edge){
+		if(edge) sendEventThrottled('move_backwards');
+	})
+	if ((initial.x-x) > 0.8) sendEventThrottled('wipe_down');
+	else if(initial.x-x < -0.8) sendEventThrottled('wipe_up');
+	else if ((initial.z-z > 0.065 ) && (initial.y-y < -0.065) && (initial.x-x>0.065)) sendEventThrottled('mark_down');
+	else if ((initial.y - y) > 0.6) sendEventThrottled('left_rotate');
+	else if ((initial.y - y) < -0.6) sendEventThrottled('right_rotate');
 }
 
 var createHandler = function(type) {
@@ -39,14 +43,11 @@ var createHandler = function(type) {
 }
 
 m.on('connected', function() {
-	m.on('fingers_spread', createHandler('move_backwards'));
-	//m.on('thumb_to_pinky', createHandler('mark_location'));
-	m.on('fist', createHandler('move_forward'));
 	m.on('wave_in', createHandler('turn_left'));
+	m.on('fist', createHandler('move_forward'));
 	m.on('wave_out', createHandler('turn_right'));
-	m.on('double_tap',createHandler('mark_page'));
 	//m.on('pose', console.log);
-	m.on('accelerometer', _.throttle(detectRotation, 100));
+	m.on('accelerometer', _.throttle(detectRotation, 400));
 });
 
 module.exports = mapEvent;
