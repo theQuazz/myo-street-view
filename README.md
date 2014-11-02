@@ -1,5 +1,5 @@
-myo-map
-=======
+Myo Street View
+===============
 
 Explore Google Maps using Myo!
 
