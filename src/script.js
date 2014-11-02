@@ -17,7 +17,7 @@ function sendEvent(eventType) {
 }
 
 
-var sendEventThrottled = _.throttle(sendEvent, 1000);
+var sendEventThrottled = _.throttle(sendEvent, 700);
 myo.options.doubleTap.threshold = 1;
 myo.options.doubleTap.time = 300;
 
@@ -28,7 +28,7 @@ function detectRotation(data) {
 //	console.log(x,y,z);
 	if (x < -0.8) sendEventThrottled('wipe_down');
 	else if (x > 0.8 ) sendEventThrottled('wipe_up');
-	else if (y < 0) sendEventThrottled('left_rotate');
+	else if (y < -0.1) sendEventThrottled('left_rotate');
 	else if (y > 0.9) sendEventThrottled('right_rotate');
 }
 
@@ -46,7 +46,7 @@ m.on('connected', function() {
 	m.on('wave_out', createHandler('turn_right'));
 	m.on('double_tap',createHandler('mark_page'));
 	//m.on('pose', console.log);
-	m.on('accelerometer', _.throttle(detectRotation, 400));
+	m.on('accelerometer', _.throttle(detectRotation, 100));
 });
 
-console.log('up and running');
+module.exports = mapEvent;
