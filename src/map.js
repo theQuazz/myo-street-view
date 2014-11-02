@@ -1,5 +1,5 @@
 
-function MyoMapExplorer(position, el) {
+function MyoMapExplorer(position, mapEl, searchEl) {
   var panoOptions = {
     position: position,
     addressControlOptions: {
@@ -11,7 +11,29 @@ function MyoMapExplorer(position, el) {
     enableCloseButton: false
   };
   
-  this.panorama = new google.maps.StreetViewPanorama(el , panoOptions);
+  this.panorama = new google.maps.StreetViewPanorama(mapEl , panoOptions);
+  this.panorama.controls[google.maps.ControlPosition.TOP_CENTER].push(searchEl);
+
+  this.searchBox = new google.maps.places.SearchBox(searchEl);
+  google.maps.event.addListener(this.searchBox, 'places_changed', this.placeChanged.bind(this));
+}
+
+MyoMapExplorer.prototype.placeChanged = function() {
+  var places = this.searchBox.getPlaces();
+  if (!places.length) return;
+  this.setLatLng(places[0].geometry.location, function(){});
+}
+
+MyoMapExplorer.prototype.setLatLng = function(latLng, cb) {
+    var sv = new google.maps.StreetViewService();
+    sv.getPanoramaByLocation(latLng, 1e2, function(data, status) {
+      if (status == google.maps.StreetViewStatus.OK) {
+        this.panorama.setPosition(data.location.latLng);
+        cb();
+      } else {
+        cb(new Error('Unable to find StreetView for that location'));
+      }
+    }.bind(this));
 }
 
 MyoMapExplorer.prototype.setMyoEmitter = function(emitter) {

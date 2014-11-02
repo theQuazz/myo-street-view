@@ -1,7 +1,5 @@
 <html>
   <head>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
-    <script type="text/javascript" src="main.js"></script>
     <style>
       #street-view {
         width: 100%;
@@ -13,9 +11,18 @@
         height: 100%;
         margin: 0;
       }
+
+      #search {
+        margin-top: 15px;
+        width: 400px;
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
+    <input id="search" type="text" placeholder="Enter a location" />
     <div id="street-view"></div>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&callback=initialize"></script>
   </body>
 </html>

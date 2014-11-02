@@ -3,9 +3,21 @@
   "name": "Myo App",
   "description": "Yay!",
   "version": "0.0.1",
+  "permissions": ["geolocation", "webview"],
+  "webview": {
+    "partitions": [
+      {
+        "name": "trusted*",
+        "accessible_resources": ["*"]
+      }
+    ]
+  },
   "app": {
-    "launch": {
-      "local_path": "src/main.html"
+    "background": {
+      "scripts": ["build/background.js"]
     }
+  },
+  "sandbox": {
+    "pages": ["build/main.html"]
   }
 }
