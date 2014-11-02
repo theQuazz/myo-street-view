@@ -3,6 +3,8 @@ myo-map
 
 Explore Google Maps using Myo!
 
+https://chrome.google.com/webstore/detail/cackmbmhhkligdeeagpfjpbbebifajik
+
 ### Commands
 - **fist**: move forward
 - **spread** fingers: move backwards
