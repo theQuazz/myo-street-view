@@ -14,10 +14,10 @@
   },
   "app": {
     "background": {
-      "scripts": ["build/background.js"]
+      "scripts": ["src/background.js"]
     }
   },
   "sandbox": {
-    "pages": ["build/main.html"]
+    "pages": ["src/main.html"]
   }
 }
