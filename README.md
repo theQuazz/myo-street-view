@@ -1,6 +1,8 @@
 Myo Street View
 ===============
 
+Hackathon Submission @ University of Waterloo.
+
 Explore Google Maps using Myo!
 
 https://chrome.google.com/webstore/detail/cackmbmhhkligdeeagpfjpbbebifajik
