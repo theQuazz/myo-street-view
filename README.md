@@ -5,7 +5,8 @@ Hackathon Submission @ University of Waterloo.
 
 Explore Google Maps using Myo!
 
-https://chrome.google.com/webstore/detail/cackmbmhhkligdeeagpfjpbbebifajik
+### Dependencies
+Save this file: https://raw.githubusercontent.com/stolksdorf/myo.js/master/experimental/myo.experimental.js into the experimental directory of the myo dependency installed upon npm install.
 
 ### Commands
 - **fist**: move forward

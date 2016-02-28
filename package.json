@@ -1,5 +1,5 @@
 {
-  "name": "myo maps",
+  "name": "myo_maps",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,10 @@
     "events": "^1.0.2",
     "gulp-watch": "^1.1.0",
     "lodash": "^2.4.1",
-    "myo": "^1.0.0"
+    "myo": "*"
   },
   "devDependencies": {
-    "gulp": "^3.8.9"
+    "gulp": "^3.8.9",
+    "gulp-browserify": "*"
   }
 }
